@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 
 
@@ -78,6 +79,45 @@ router.post('/authorised',verifyToken,(req,res)=>{
   res.statusCode = 200;
   res.send("Welcome To Authorised Person Only!");
 });
+
+
+router.post('/mail',(req,res)=>{
+
+  var u = req.body.email;
+  var p = req.body.password;
+  var t = req.body.email_to;
+  var s = req.body.subject;
+  var txt = req.body.text;
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: u,
+      pass: p
+    }
+  });
+  
+  var mailOptions = {
+    from: u,
+    to: t,
+    subject: s,
+    text: txt
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+      res.status(500).send("Error! Requset was not successful.");
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send("E-mail Sent!");
+    }
+  });
+
+  
+});
+
+
 /*
 router.get('/hash',(req,res)=>{
   data = hash.update('nodejsera', 'utf-8');

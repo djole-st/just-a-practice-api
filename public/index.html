@@ -20,11 +20,12 @@
          I suggest using Postman if possible to send diferent requests and view their response. 
          Here is <a target="blank" href="https://learning.postman.com/docs/sending-requests/requests/">link</a> on how to send various requests and use it.
          
-         <br>This is not a full project version, but worry not, you can find it in one of my <a target="blank" href="https://github.com/djole-st">GitHub</a> repositories.  
-         <br>Full version has e-mail sending available, but use it carefully when you use it as you need to set security level of a account which sends e-mail to a lower level.
-         <br>Check out my <a target="blank" href="https://www.linkedin.com/in/djordje-stankovic-a187511a1/">LinkedIn</a> also if you are interested.
-         <br>Wish you all the best and have fun :D !!!
+         <br>Use it carefully as you need to set security level of a account which sends e-mail to a lower level.
+         <br><br><b>If possible, create a new Google Account, and in settings set "Allow Apps with lower security" to yes.
+         <br>Only then you can send e-mails. Passwords are crypted before saving in database and you can delete any record you make.</b>
+         <br><br>Wish you all the best and have fun :D !!!
         </p>
+        <h3><a target="blank" href="https://just-a-practice-api.herokuapp.com/">Click Here For Live Version</a></h3>
     </div>
     <table id="routes">
         <tr><th>Method</th><th>Endpoint</th><th>Details</th><th>Authorised</th></tr>
@@ -44,6 +45,12 @@
             <td>POST</td>
             <td>/api/users/authorised</td>
             <td>Authorised Personel Only</td>
+            <td>YES</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/users/mail</td>
+            <td>Send e-mail</td>
             <td>YES</td>
         </tr>
         <tr>
@@ -119,12 +126,24 @@
     </div>
 
     <div class="details">
+        <p id="route"><span>POST</span>: /api/users/mail</p>
+        <p id="req_example">Request example</p>
+        <p>Need to set "Authorization" header to "Bearer Token"</p>
+        <p>Token: <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcmEiLCJpYXQiOjE2MzMwMzc4MjQsImV4cCI6MTYzMzAzOTAyNH0.iEj9sTv5YkL0xR29weArocF95R2xbPz_TvOqYUFFVEE</code></p>
+        <p>Also Request body needs to look like this</p>
+        <code>
+            {"subject":"Test mail","text":"Just a mail i sent from my node app.","password":"test_password","email":"testemail@gmail.com","email_to":"testemail_second@gmail.com"}
+        </code>
+        <p>PS: "password" is a real password for Google Account, in this case for testemail@gmail.com</p>
+        <p><span id="res_example">Response Message:</span> "E-mail sent!" or Unauthorised/Error if request is not valid.</p>
+    </div>
+
+    <div class="details">
         <p id="route"><span>GET</span>: /api/users/list</p>
         <p  id="res_example">Response Example</p>
         <p>Response: JSON Array of User Objects</p>
         <code>
-            [{"id": 1,"username": "pera","password": "pera","email": "asdf@gmail.com"},<br>
-            {"id": 4,"username": "miki","password": "mikisha","email": "novimikijev@gmail.com"}]
+            [{"id":17,"username":"test_user","password":"9fb7fe1217aed442b04c0f5e43b5d5a7d3287097","email":"testemail@gmail.com"},<br>{"id":18,"username":"test_user_second","password":"5ff9a91695899d506c12f4b0f32fc53a04d1943d","email":"testemail_second@gmail.com"}]
         </code>
     </div>
  
